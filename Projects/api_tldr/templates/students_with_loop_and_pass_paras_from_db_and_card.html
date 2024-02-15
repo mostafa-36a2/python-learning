@@ -1,0 +1,32 @@
+
+<!DOCTYPE html>
+<html>
+    <!-- page source: https://www.w3schools.com/w3css/tryit.asp?filename=tryw3css_sidebar -->
+    <title>{{title}}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <body>
+
+        <!-- Sidebar -->
+        <div class="w3-sidebar w3-light-grey w3-bar-block" style="width:25%">
+            <h3 class="w3-bar-item">Students</h3>
+            <!-- https://www.geeksforgeeks.org/python-using-for-loop-in-flask/ -->
+            {%for student in students%}
+            <a
+                href="/students_with_jinja_for_loop4/{{student[0]}}/{{student[1]}}/"
+                class="w3-bar-item
+                w3-button">{{student[1]}}. {{student[0]}}</a>
+            {%endfor%}
+        </div>
+
+        <!-- Page Content -->
+        <div style="margin-left:25%" id="content">
+            {% if home == True: %}
+            <h1>Please choose a student</h1>
+            {% else %}
+            {{card_html |safe}}
+            {% endif %}
+        </div>
+
+    </body>
+</html>

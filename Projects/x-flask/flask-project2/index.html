@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        button{
+            display: block;
+            margin: 8px;
+            padding: 8px;
+            width: 25%;
+        }
+        .good_peer{
+            background-color: green;
+        }
+        .bad_peer{
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        function httpGetAsync(theUrl, callback) {
+            var xmlHttp = new XMLHttpRequest();
+            xmlHttp.onreadystatechange = function () {
+                if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+                    callback(xmlHttp.responseText);
+            }
+            xmlHttp.open("GET", theUrl, true); // true for asynchronous 
+            xmlHttp.send(null);
+        }
+
+        
+        httpGetAsync(`http://mostafa36a2.pythonanywhere.com/names`,function(response){
+            json_obj = JSON.parse(response);
+            //alert(`client: ${json_obj.client[0].name}`);
+            console.log("Client name is: " + json_obj.client[0].name)
+            for (var i = 0; i<6;i++){
+                console.log(`Peer ${i} name is:`+ json_obj.peers[i].name)
+            }
+        })
+
+        httpGetAsync(`http://mostafa36a2.pythonanywhere.com/status/client/in/${i}`,function(response){
+            json_obj = JSON.parse(response);
+            //alert(`client: ${json_obj}`);
+        })
+        for (var i = 1; i<=6;i++){
+            httpGetAsync(`http://mostafa36a2.pythonanywhere.com/status/peer/in/${i}`,function(response){
+
+                json_obj = JSON.parse(response);
+                console.log(json_obj);
+                button1 = document.createElement("button");
+                button1.appendChild(document.createTextNode(
+                    `${json_obj.peer_type}-${json_obj.id}: ${json_obj.state}`
+                    )
+                );
+                if (json_obj.state=="connected"){
+                    button1.classList.add("good_peer")
+                }else{
+                    button1.classList.add("bad_peer")
+                }
+                button1.setAttribute("title",json_obj.msg)
+                body = document.getElementsByTagName("body")[0];
+                body.appendChild(button1);
+                
+            })
+        }
+
+    </script>
+</body>
+</html>

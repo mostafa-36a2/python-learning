@@ -1,0 +1,17 @@
+- Question
+- Choices
+- Correct Answer ?
+- Single user
+- Sign Correct/ Wrong 
+======================
+User Interface: HTML / CSS / JS
+Store: sqlite
+Backend: python/flask
+=====================
+
+1- Store question/answer
+2- Insert question from user
+3- Remove 2 answers
+4- Shuffle answers
+5- Suggest answers
+6- Backend to find correct answer

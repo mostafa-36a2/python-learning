@@ -1,0 +1,80 @@
+
+<!DOCTYPE html>
+<html>
+    <!-- page source: https://www.w3schools.com/w3css/tryit.asp?filename=tryw3css_sidebar -->
+    <title>{{title}}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <script>
+        function httpGetAsync(theUrl, callback) {
+            var xmlHttp = new XMLHttpRequest();
+            xmlHttp.onreadystatechange = function () {
+                if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+                    callback(xmlHttp.responseText);
+            }
+            xmlHttp.open("GET", theUrl, true); // true for asynchronous 
+            xmlHttp.send(null);
+        }
+
+        console.log("Hi1")
+        window.addEventListener("load",function(){
+            console.log("Helo2")
+            mylinks = document.getElementsByClassName("mylinks");
+            for(var i =0;i<mylinks.length;i++){
+                console.log(mylinks[i]);
+                mylinks[i].addEventListener("click",function(e){
+                    student_id = e.target.getAttribute("student_id");
+                    student_name = e.target.getAttribute("student_name");
+                    console.log(student_id,student_name);
+                    httpGetAsync(`/get-student-data/${student_id}`,function(r){
+                        json_object = JSON.parse(r);
+                        id = json_object[0][0];
+                        image_name = json_object[0][2];
+                        nickname = json_object[0][3];
+                        rdate = json_object[0][4];
+                        
+                        content = document.getElementById("content")
+                        content.innerHTML = ""
+                        
+                        name_paragraph = document.createElement("p")
+                        name_paragraph.appendChild(document.createTextNode(json_object[0][1]))
+                        
+                        img = document.createElement("img")
+                        img.setAttribute("src","/static/images/"+image_name)
+
+                        content.appendChild(name_paragraph)
+                        content.appendChild(img)
+                        content.appendChild(document.createTextNode("nickname:"+nickname))
+
+                        console.log(id);
+                        console.log(name);
+                        //.innerHTML=r;
+                    })
+                })
+            }
+        })
+    </script>
+    <body>
+
+        <!-- Sidebar -->
+        <div class="w3-sidebar w3-light-grey w3-bar-block" style="width:25%">
+            <h3 class="w3-bar-item">Students</h3>
+            <!-- https://www.geeksforgeeks.org/python-using-for-loop-in-flask/ -->
+            {%for student in students%}
+            <a
+                href="#"
+                student_name="{{student[0]}}"
+                student_id="{{student[1]}}"
+                class="w3-bar-item w3-button mylinks">
+                {{student[1]}}. {{student[0]}}</a>
+            {%endfor%}
+        </div>
+
+        <!-- Page Content -->
+        <div style="margin-left:25%" id="content">
+            {% if home == True: %}
+            <h1>Please choose a student</h1>
+            {% endif %}
+        </div>
+    </body>
+</html>

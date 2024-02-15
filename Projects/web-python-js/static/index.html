@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <label for="a_number">a number: </label>
+    <textarea id="a_number" name="a_number" rows="1" cols="11"></textarea> 
+    <br>
+    <label for="b_number">b number: </label>
+    <textarea id="b_number" name="b_number" rows="1" cols="11"></textarea> 
+    <br>
+    <button id="submit">اجمع العددين</button>
+    <h1 id="result_h1"> Result: <span id="result"></span></h1>
+
+
+    <form action="https://www.google.com/search">
+        <label for="fname">First name:</label><br>
+        <input type="text" id="q" name="q" value="John"><br>
+        <label for="lname">Last name:</label><br>
+        <input type="text" id="lname" name="lname" value="Doe"><br><br>
+        <input type="submit" value="Submit">
+    </form> 
+</body>
+
+<script>
+
+    document.querySelector("#submit").addEventListener("click",function(){
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+            // Typical action to be performed when the document is ready:
+            // document.getElementById("demo").innerHTML = xhttp.responseText;
+            document.getElementById("result").innerText = xhttp.responseText;
+            document.getElementById("result_h1").hidden = false;
+        }
+        };
+        a_number = document.getElementById("a_number").value;
+        b_number = document.getElementById("b_number").value;
+        xhttp.open("GET", `http://127.0.0.1:5000/add-two-numbers/${a_number}/${b_number}`, true);
+        xhttp.send();
+    })
+
+    
+</script>
+
+</html>

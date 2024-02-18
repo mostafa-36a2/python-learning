@@ -1,0 +1,96 @@
+{
+    "editor.formatOnSave": true,
+    "liveshare.guestApprovalRequired": false,
+    "diffEditor.experimental.useVersion2": true,
+    "diffEditor.experimental.showMoves": true,
+    "diffEditor.diffAlgorithm": "advanced",
+    "python.testing.autoTestDiscoverOnSaveEnabled": true,
+    "editor.rulers": [
+        120,
+        100,
+        80
+    ],
+    "isort.args": [
+        "--profile",
+        "black"
+    ],
+    "[python]": {
+        "editor.defaultFormatter": "ms-python.black-formatter",
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": "explicit"
+        }
+    },
+    "workbench.colorCustomizations": {
+        "editor.background": "#000000",
+        "sideBar.background": "#000000",
+        "sideBarTitle.foreground": "#ffffff",
+        "sideBarSectionHeader.background": "#444444"
+    },
+    "python.analysis.typeCheckingMode": "basic",
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/CVS": true,
+        "**/.DS_Store": true,
+        "**/Thumbs.db": true,
+        "**/.classpath": true,
+        "**/.project": true,
+        "**/.settings": true,
+        "**/.factorypath": true
+    },
+    "gitCommitMessageEditor.intelliSense.completion.scopes": [
+        {
+            "scope": "trnvalidators",
+            "description": "TRN Validator module"
+        },
+        {
+            "scope": "trasnfer",
+            "description": "Trasnfer process"
+        },
+        {
+            "scope": "Logger",
+            "description": "Logger module"
+        },
+        {
+            "scope": "db_access"
+        },
+        {
+            "scope": "helpers"
+        },
+        {
+            "scope": "trn_decoder"
+        },
+        {
+            "scope": "nd_processor",
+            "description": "use list_to_sql_list in queries"
+        },
+        {
+            "scope": "DchInfo",
+            "description": "Getting DCH info data"
+        },
+        {
+            "scope": "TrnFileInfo"
+        }
+    ],
+    "python.testing.pytestArgs": [
+        "tests"
+    ],
+    "python.testing.unittestEnabled": false,
+    "python.testing.pytestEnabled": true,
+    // "python.testing.pytestArgs": [
+    //     "-v",
+    //     "--cov=/home/mostafa/Documents/Cellusys/DCH_Project/ack_file_app",
+    //     "--cov-report=xml",
+    //     "--pdb",
+    //     "tests/"
+    // ],
+    "python.testing.unittestArgs": [
+        "-v",
+        "-s",
+        "./tests",
+        "-p",
+        "test_*.py"
+    ],
+    "python.analysis.autoImportCompletions": false,
+}

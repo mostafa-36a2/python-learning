@@ -1,0 +1,10 @@
+2022-09-12 21:03:36 DEBUG    debug message
+2022-09-12 21:03:36 INFO     info message
+2022-09-12 21:03:36 WARNING  warning message
+2022-09-12 21:03:36 ERROR    error message
+2022-09-12 21:03:36 CRITICAL critical message
+[46m2022-09-12 21:06:57 [44mDEBUG    [42mdebug message[0m
+[46m2022-09-12 21:06:57 [44mINFO     [42minfo message[0m
+[46m2022-09-12 21:06:57 [44mWARNING  [42mwarning message[0m
+[46m2022-09-12 21:06:57 [44mERROR    [42merror message[0m
+[46m2022-09-12 21:06:57 [44mCRITICAL [42mcritical message[0m

@@ -1,0 +1,29 @@
+mostafa:~/Documents/Python/Lessons$ python3 Projects/stars_and_bars.py --player 1
+Staring try_to_guess function ...
+Random number:  72306
+72306    //
+Result:  {'stars': 0, 'bars': 2}
+12306    ///
+7 is out, 1 is bar
+['?', '/', '?', '?', '?', '?', '?', 'x', '?', '?']
+14306    //
+2 is bar, 4 is out
+['?', '/', '/', '?', 'x', '?', '?', 'x', '?', '?']
+14506    ///
+3 is out, 5 is bar
+['?', '/', '/', 'x', 'x', '/', '?', 'x', '?', '?']
+14586    *///
+0 is out,8 is star
+['x', '/', '/', 'x', 'x', '/', '?', 'x', '*', '?']
+14589    *//
+6 is bar, 9 is out
+['x', '/', '/', 'x', 'x', '/', '/', 'x', '*', 'x']
+14589 *//
+Traceback (most recent call last):
+  File "Projects/stars_and_bars.py", line 214, in <module>
+    try_to_guess()
+  File "Projects/stars_and_bars.py", line 202, in try_to_guess
+    cmp_res = cmp_rslts_chng_1_strtgy(
+  File "Projects/stars_and_bars.py", line 88, in cmp_rslts_chng_1_strtgy
+    old_digit = int(old_digit)
+TypeError: int() argument must be a string, a bytes-like object or a number, not 'NoneType'

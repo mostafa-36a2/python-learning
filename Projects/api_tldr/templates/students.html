@@ -1,0 +1,33 @@
+
+<!DOCTYPE html>
+<html>
+    <!-- page source: https://www.w3schools.com/w3css/tryit.asp?filename=tryw3css_sidebar -->
+    <title>{{title}}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <body>
+
+        <!-- Sidebar -->
+        <div class="w3-sidebar w3-light-grey w3-bar-block" style="width:25%">
+            <h3 class="w3-bar-item">Students</h3>
+            <a href="/students/Pizza" class="w3-bar-item w3-button">Pizza</a>
+            <a href="/students/Bread" class="w3-bar-item w3-button">Bread</a>
+            <a href="/students/Milk" class="w3-bar-item w3-button">Milk</a>
+            <a href="/students/Pizza" class="w3-bar-item w3-button">Pizza</a>
+            <a href="/students/Bread" class="w3-bar-item w3-button">Bread</a>
+            <a href="/students/Milk" class="w3-bar-item w3-button">Milk</a>
+            <a href="/students/Pizza" class="w3-bar-item w3-button">Pizza</a>
+            <a href="/students/Bread" class="w3-bar-item w3-button">Bread</a>
+            <a href="/students/Milk" class="w3-bar-item w3-button">Milk</a>
+        </div>
+
+        <!-- Page Content -->
+        <div style="margin-left:25%" id="content">
+            {% if home == True: %}
+            <h1>Please choose a student</h1>
+            {% else %}
+            <h1>Hello {{ username }}</h1>
+            {% endif %}
+        </div>
+    </body>
+</html>

@@ -1,0 +1,83 @@
+Connected comonents
+https://www.pyimagesearch.com/2021/02/22/opencv-connected-component-labeling-and-analysis/
+
+Make gif
+https://towardsdatascience.com/the-simplest-way-of-making-gifs-and-math-videos-with-python-aec41da74c6e
+
+Plot histogram
+https://stackoverflow.com/questions/33203645/how-to-plot-a-histogram-using-matplotlib-in-python-with-a-list-of-data
+https://stackoverflow.com/questions/47850202/plotting-a-histogram-on-a-log-scale-with-matplotlib
+https://www.pyimagesearch.com/2021/04/28/opencv-image-histograms-cv2-calchist/
+
+
+Thresholding
+https://www.pyimagesearch.com/2021/04/28/opencv-thresholding-cv2-threshold
+https://www.geeksforgeeks.org/python-thresholding-techniques-using-opencv-set-1-simple-thresholding/
+https://www.pyimagesearch.com/2021/05/12/adaptive-thresholding-with-opencv-cv2-adaptivethreshold/
+https://ckyrkou.medium.com/color-thresholding-in-opencv-91049607b06d
+
+Normalization
+https://stackoverflow.com/questions/38025838/normalizing-images-in-opencv
+
+Numpy
+https://numpy.org/doc/stable/reference/generated/numpy.ndarray.shape.html
+https://moonbooks.org/Articles/How-to-convert-a-float-array-to-an-integer-array-in-python-/
+https://www.geeksforgeeks.org/numpy-ndarray/
+https://stackoverflow.com/questions/46689428/convert-np-array-of-type-float64-to-type-uint8-scaling-values
+
+
+OpenCV
+https://stackoverflow.com/questions/21596281/how-does-one-convert-a-grayscale-image-to-rgb-in-opencv-python
+https://stackoverflow.com/questions/15589517/how-to-crop-an-image-in-opencv-using-python
+https://www.geeksforgeeks.org/python-opencv-cv2-rectangle-method/
+https://stackoverflow.com/questions/20180210/python-how-to-combine-two-matrices-in-numpy
+https://stackoverflow.com/questions/50189403/how-to-write-text-on-image-using-opencv-python-in-run-time-application
+https://opencv24-python-tutorials.readthedocs.io/en/latest/py_tutorials/py_gui/py_drawing_functions/py_drawing_functions.html
+https://www.geeksforgeeks.org/python-opencv-cv2-puttext-method/
+https://stackoverflow.com/questions/12201577/how-can-i-convert-an-rgb-image-into-grayscale-in-python
+
+
+Python
+https://stackoverflow.com/questions/15375093/python-get-number-of-items-from-listsequence-with-certain-condition
+https://www.w3schools.com/python/ref_string_format.asp
+https://careerkarma.com/blog/python-string-to-int
+https://www.geeksforgeeks.org/convert-integer-to-string-in-python/
+https://stackoverflow.com/questions/13539968/how-can-i-find-the-dimensions-of-a-matrix-in-python
+https://stackoverflow.com/questions/9437726/how-to-get-the-value-of-a-variable-given-its-name-in-a-string
+
+Face Detection
+https://towardsdatascience.com/face-detection-in-2-minutes-using-opencv-python-90f89d7c0f81
+https://www.geeksforgeeks.org/face-detection-using-python-and-opencv-with-webcam/
+https://www.mygreatlearning.com/blog/real-time-face-detection/
+https://miro.medium.com/max/1838/1*-cyqWPcas3CXp4O2O7xPpg.png
+https://towardsdatascience.com/how-do-you-train-a-face-detection-model-a60330f15fd5
+https://www.pyimagesearch.com/2021/05/03/face-recognition-with-local-binary-patterns-lbps-and-opencv/
+
+Hand gesture recognition
+https://medium.com/analytics-vidhya/hand-detection-and-finger-counting-using-opencv-python-5b594704eb08
+https://medium.com/analytics-vidhya/contours-and-convex-hull-in-opencv-python-d7503f6651bc
+
+Skin detection
+https://nalinc.github.io/blog/2018/skin-detection-python-opencv/
+
+Bitwise
+https://www.pyimagesearch.com/2021/01/19/image-masking-with-opencv/
+https://stackoverflow.com/questions/44333605/what-does-bitwise-and-operator-exactly-do-in-opencv
+
+Erosion and dilation(morphological operations)
+
+Descrete Cosine transform
+https://www.researchgate.net/figure/DCT-basis-functions-for-N-8_fig2_268452118
+
+
+Color spaces
+https://thumbs.dreamstime.com/b/d-color-colors-wheel-hsv-hsb-explanation-explanations-meaning-79666785.jpg
+
+Steps:
+1- Color spaces
+2- Binarization or Normalization
+3- Connected componedts
+4- Classification Alphabet
+5- Detect Fonts
+Training sets
+Models

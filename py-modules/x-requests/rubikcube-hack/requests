@@ -1,0 +1,178 @@
+RoundCube
+
+
+==================================== Initial page ===============================
+GET / HTTP/2
+Host: webmail.syriatel.sy
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:108.0) Gecko/20100101 Firefox/108.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: none
+Sec-Fetch-User: ?1
+TE: trailers
+
+HTTP/2 200 OK
+server: nginx
+date: Sun, 05 Feb 2023 11:53:08 GMT
+content-type: text/html; charset=UTF-8
+content-length: 2075
+x-powered-by: PHP/7.4.33
+expires: Sun, 05 Feb 2023 11:53:08 GMT
+cache-control: private, no-cache, no-store, must-revalidate, post-check=0, pre-check=0
+pragma: no-cache
+x-frame-options: sameorigin
+content-language: en
+set-cookie: roundcube_sessid=o2p62f04i1fqkpeuqadf30cdt4; path=/; secure; HttpOnly
+last-modified: Sun, 05 Feb 2023 11:53:08 GMT
+vary: Accept-Encoding
+content-encoding: gzip
+x-robots-tag: noindex, nofollow
+X-Firefox-Spdy: h2
+
+=================================== Login ==============================
+
+https://webmail.syriatel.sy/?_task=login
+
+
+POST /?_task=login HTTP/2
+Host: webmail.syriatel.sy
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:108.0) Gecko/20100101 Firefox/108.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate, br
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 129
+Origin: https://webmail.syriatel.sy
+Connection: keep-alive
+Referer: https://webmail.syriatel.sy/
+Cookie: roundcube_sessid=o2p62f04i1fqkpeuqadf30cdt4
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: same-origin
+Sec-Fetch-User: ?1
+TE: trailers
+
+_token=nZ7FEKXlX8lqveVfxixVFdA4DY3c8OFI&_task=login&_action=login&_timezone=UTC&_url=&_user=dch%40dch.syriatel.sy&_pass=xBk99p*60
+
+HTTP/2 302 Found
+server: nginx
+date: Sun, 05 Feb 2023 11:54:11 GMT
+content-type: text/html; charset=UTF-8
+content-length: 0
+x-powered-by: PHP/7.4.33
+expires: Sun, 05 Feb 2023 11:54:11 GMT
+cache-control: private, no-cache, no-store, must-revalidate, post-check=0, pre-check=0
+pragma: no-cache
+x-frame-options: sameorigin
+set-cookie: roundcube_sessauth=-del-; expires=Sun, 05-Feb-2023 11:53:11 GMT; Max-Age=0; path=/; secure; HttpOnly
+set-cookie: roundcube_sessid=ro6hfe1ab6jc1q0t1058lkldd0; path=/; secure; HttpOnly
+set-cookie: roundcube_sessauth=7oNAsfpI475P0EN79fb1CZ1D8l-1675597800; path=/; secure; HttpOnly
+last-modified: Sun, 05 Feb 2023 11:54:11 GMT
+location: ./?_task=mail&_token=sf8OGhA6RRM5nbZnND7kIR467WBRlofz
+x-robots-tag: noindex, nofollow
+X-Firefox-Spdy: h2
+
+============================== Redirect to mail list ===============================
+
+https://webmail.syriatel.sy/?_task=mail&_token=sf8OGhA6RRM5nbZnND7kIR467WBRlofz
+
+
+GET /?_task=mail&_token=sf8OGhA6RRM5nbZnND7kIR467WBRlofz HTTP/2
+Host: webmail.syriatel.sy
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:108.0) Gecko/20100101 Firefox/108.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate, br
+Referer: https://webmail.syriatel.sy/
+Connection: keep-alive
+Cookie: roundcube_sessid=ro6hfe1ab6jc1q0t1058lkldd0; roundcube_sessauth=7oNAsfpI475P0EN79fb1CZ1D8l-1675597800
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: same-origin
+Sec-Fetch-User: ?1
+TE: trailers
+
+HTTP/2 200 OK
+server: nginx
+date: Sun, 05 Feb 2023 11:54:11 GMT
+content-type: text/html; charset=UTF-8
+content-length: 8510
+x-powered-by: PHP/7.4.33
+expires: Sun, 05 Feb 2023 11:54:11 GMT
+cache-control: private, no-cache, no-store, must-revalidate, post-check=0, pre-check=0
+pragma: no-cache
+x-dns-prefetch-control: off
+referrer-policy: same-origin
+x-frame-options: sameorigin
+content-language: en
+last-modified: Sun, 05 Feb 2023 11:54:11 GMT
+vary: Accept-Encoding
+content-encoding: gzip
+x-robots-tag: noindex, nofollow
+X-Firefox-Spdy: h2
+
+
+================================= Save message to draft =======================================
+Upload  a file
+
+POST
+https://webmail.syriatel.sy/?_task=mail&_remote=1&_from=compose&_id=27546769163df999f7509b&_uploadid=upload1675598514780&_action=upload
+
+-----------------------------26352786341012311690616739913
+Content-Disposition: form-data; name="_attachments[]"; filename="STARTER_REQUIREMENTS"
+Content-Type: application/octet-stream
+
+0- English
+1- Linux OS (Experience in Running Linux commands/shell)
+2- Internet Browser
+3- Stable Internet connection (High speed ++++ VPN)
+4- VSCode
+5- object-oriented code and basic programming concepts such as variables, loops, and conditionals, you can complete this tutorial.
+
+-----------------------------26352786341012311690616739913--
+
+POST /?_task=mail&_remote=1&_from=compose&_id=27546769163df999f7509b&_uploadid=upload1675598514780&_action=upload HTTP/2
+Host: webmail.syriatel.sy
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:108.0) Gecko/20100101 Firefox/108.0
+Accept: application/json, text/javascript, */*; q=0.01
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate, br
+Referer: https://webmail.syriatel.sy/?_task=mail&_action=compose&_id=27546769163df999f7509b
+X-Roundcube-Request: sf8OGhA6RRM5nbZnND7kIR467WBRlofz
+X-Requested-With: XMLHttpRequest
+Content-Type: multipart/form-data; boundary=---------------------------26352786341012311690616739913
+Content-Length: 535
+Origin: https://webmail.syriatel.sy
+Connection: keep-alive
+Cookie: roundcube_sessid=ro6hfe1ab6jc1q0t1058lkldd0; roundcube_sessauth=7oNAsfpI475P0EN79fb1CZ1D8l-1675598400; language=en_US
+Sec-Fetch-Dest: empty
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+TE: trailers
+
+HTTP/2 200 OK
+server: nginx
+date: Sun, 05 Feb 2023 12:01:10 GMT
+content-type: text/plain; charset=UTF-8
+content-length: 373
+x-powered-by: PHP/7.4.33
+x-dns-prefetch-control: off
+referrer-policy: same-origin
+x-frame-options: sameorigin
+expires: Sun, 05 Feb 2023 12:01:10 GMT
+cache-control: private, no-cache, no-store, must-revalidate, post-check=0, pre-check=0
+pragma: no-cache
+last-modified: Sun, 05 Feb 2023 12:01:10 GMT
+vary: Accept-Encoding
+content-encoding: gzip
+x-robots-tag: noindex, nofollow
+X-Firefox-Spdy: h2
+
+

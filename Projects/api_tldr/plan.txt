@@ -1,0 +1,25 @@
+===backend===
+1- API <data>
+1.1- Return Value
+1.2- Return Json
+1.3- Return static HTML Page [static link]
+1.4- Return Image
+frontend --- Parameters---> backend
+
+2- Jinja (Template engine) <content>
+2.1- Return dynamic HTML page
+2.2- Return sub HTML page (table)
+2.3- Return sub HTML page (card)
+
+===frontend===
+3- ajax vs links [with parameters]
+3.1- ajax to get value
+3.2- ajax to get json
+3.3- ajax to get image
+3.4- ajax to get sub html pages (table)
+3.5- ajax to get sub html pages (card)
+
+3.6- link to get html page [parameters]
+
+==database==
+sqlite3

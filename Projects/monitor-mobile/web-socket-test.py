@@ -267,6 +267,7 @@ def monitor(*args):
 
         # https://www.geeksforgeeks.org/python-opencv-cv2-rotate-method/
         rotated = cv2.rotate(crop_img, cv2.ROTATE_90_COUNTERCLOCKWISE)
+        # rotated = crop_img
         current_frame = rotated
         cv2.imshow("1-rotated", rotated)
 
@@ -434,18 +435,6 @@ def monitor(*args):
     cap.release()
 
 
-def check_if_cnt_raising_edge(cnt_id):
-    first_part = c_stats_dict[cnt_id][:5] / 5
-    secnd_part = c_stats_dict[cnt_id][5:] / 5
-    return secnd_part > first_part * 2
-
-
-def check_if_cnt_falling_edge(cnt_id):
-    first_part = c_stats_dict[cnt_id][:5] / 5
-    secnd_part = c_stats_dict[cnt_id][5:] / 5
-    return first_part > secnd_part * 2
-
-
 #### --------------------------------------
 #### --------------------------------------
 #### --------------------------------------
@@ -468,11 +457,6 @@ async def __send(websocket, id, ck):
     print(f"Sent: {data_to_send}")
 
     time.sleep(0.1)
-
-
-async def press_tab(websocket):
-    await __send(websocket, 0, 43)
-    await __send(websocket, 0, 0)
 
 
 async def press_backspace(websocket):
@@ -504,14 +488,9 @@ async def goto_editbar(websocket):
     if OFFLINE_MODE:
         return False
     # TODO: goto_editbar Implementation
-    while True:
+    while not key_state["edit"]:
         await press_shifttab(websocket)
-        if key_state["edit"]:
-            break
-        else:
-            time.sleep(1)
-            if key_state["edit"]:
-                break
+        time.sleep(1)
 
 
 async def goto_number_1(websocket):
@@ -524,26 +503,31 @@ async def goto_number_1(websocket):
     print("Done, Should be now on number 1")
 
 
-async def enter_number(websocket, num: str):
+async def enter_number(websocket, num: str, start_from: int):
     assert len(num) == 4
     print(f"Trying to send number {num}")
     if OFFLINE_MODE:
         return False
-    for c in num:
+    for index, c in enumerate(num):
         assert c in "0123456789"
         await press_number(websocket, c)
         time.sleep(0.5)
+        cv2.imwrite(
+            f"/home/mostafa/Desktop/after_press_{index}/test_{str(start_from).zfill(6)}_{num}.png",
+            get_current_frame(),
+        )
 
 
 #### --------------------------------------
 #### --------------------------------------
 #### --------------------------------------
+ip_address = "192.168.4.1"  # "192.168.1.100"  #
+ws_url = f"ws://{ip_address}/d/ws/issue"
 
 
 async def keep_looping():
-    print("function try_all_pos started ...")
-    ip_address = "192.168.4.1"  # "192.168.1.100"  #
-    ws_url = f"ws://{ip_address}/d/ws/issue"
+    print("function keep_looping started ...")
+
     print(f"Trying to connect to websocket: {ws_url}")
 
     async with websockets.connect(ws_url) as websocket:
@@ -558,9 +542,7 @@ START_AVERAGING_KEY: {START_AVERAGING_KEY}, then {START_TUNING_KEY}"
 
 
 async def tune_thresholds():
-    print("function try_all_pos started ...")
-    ip_address = "192.168.4.1"  # "192.168.1.100"  #
-    ws_url = f"ws://{ip_address}/d/ws/issue"
+    print("function tune_thresholds started ...")
     print(f"Trying to connect to websocket: {ws_url}")
 
     async with websockets.connect(ws_url) as websocket:
@@ -571,19 +553,19 @@ async def tune_thresholds():
             time.sleep(0.5)
 
 
+IMAGES_PATH_AFTER_TEST = "/home/mostafa/Desktop/after_test/"
+
+
 async def try_all_pos(possibilities):
     print("function try_all_pos started ...")
-    ip_address = "192.168.4.1"  # "192.168.1.100"  #
-    ws_url = f"ws://{ip_address}/d/ws/issue"
-    # on_number_1, on_edit_bar, after_test
-    start_from = len(os.listdir("/home/mostafa/Desktop/after_test/"))
+    start_from = len(os.listdir(IMAGES_PATH_AFTER_TEST))
     print(f"Trying to connect to websocket: {ws_url}")
 
     async with websockets.connect(ws_url) as websocket:
 
         print(f"Looping throgh possibilities starting from {start_from}")
 
-        for pos in possibilities[start_from:]:
+        for pos in possibilities[0:183]:
 
             start_time = time.time()
             await goto_number_1(websocket)
@@ -610,7 +592,7 @@ async def try_all_pos(possibilities):
                 get_current_frame(),
             )
 
-            await enter_number(websocket, pos)
+            await enter_number(websocket, pos, start_from)
 
             # Capture the current state
             cv2.imwrite(

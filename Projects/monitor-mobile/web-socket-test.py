@@ -14,8 +14,11 @@ import numpy as np
 import websockets
 from numpy.linalg import norm
 
+ip_address = "192.168.4.1"  # "192.168.1.100"  #
+ws_url = f"ws://{ip_address}/d/ws/issue"
+
 OFFLINE_MODE = False
-CAMERA_INDEX = 3
+CAMERA_INDEX = 0
 
 current_frame = None
 
@@ -49,6 +52,13 @@ cm = "/home/mostafa/Desktop/countour_mapping.dict"
 pickle_path = "/home/mostafa/Desktop/list_of_possibilities.pickle"
 # Countour brightness stats dictionary path
 c_stats = "/home/mostafa/Desktop/countour_stats.dict"
+stats_average__stats_average_min_max__path = (
+    "/home/mostafa/Desktop/stats_average_data.pickle"
+)
+
+
+IMAGES_PATH_AFTER_TEST = "/home/mostafa/Desktop/after_test/"
+
 
 # Countour brightness stats dictionary
 c_stats_dict = {
@@ -113,6 +123,14 @@ def calc_stats_average():
     return stats_average, stats_average_min_max, key_state
 
 
+def which_button_is_on():
+    res = []
+    for key, value in key_state.items():
+        if value:
+            res.append(key)
+    return res
+
+
 def get_current_frame():
     global current_frame
     if current_frame is not None:
@@ -140,6 +158,7 @@ def handle_input():
     global start_averaging
     global start_event_loop
     global start_tuning
+    global stats_average_min_max
 
     # Check for key press, if 'q' is pressed, exit the loop
     k = cv2.waitKey(20) & 0xFF
@@ -195,6 +214,14 @@ def handle_input():
     elif k == ord("t"):
         print("Stas average", calc_stats_average())
         # print("History = ", br_history)
+    elif k == ord("h"):
+        with open(stats_average__stats_average_min_max__path, "wb") as file:
+            pickle.dump(stats_average_min_max, file)
+        print("stats_average_min_max saved, : ", stats_average_min_max)
+    elif k == ord("j"):
+        with open(stats_average__stats_average_min_max__path, "rb") as file:
+            stats_average_min_max = pickle.load(file)
+        print("stats_average_min_max loaded: ", stats_average_min_max)
     elif k == ord(" "):
         print(
             f"""
@@ -268,6 +295,8 @@ def monitor(*args):
         # https://www.geeksforgeeks.org/python-opencv-cv2-rotate-method/
         rotated = cv2.rotate(crop_img, cv2.ROTATE_90_COUNTERCLOCKWISE)
         # rotated = crop_img
+
+        cv2.imshow("0-crop_img", crop_img)
         current_frame = rotated
         cv2.imshow("1-rotated", rotated)
 
@@ -312,40 +341,6 @@ def monitor(*args):
         edged_dilate = cv2.dilate(edged, kernel, iterations=2)
         cv2.imshow("4- edged_dilate", edged_dilate)
 
-        # thresh = cv2.threshold(edged, 0, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)[1]
-        # Apply thresholding
-        # Apply morphological transformations
-        # Convert the image to grayscale
-        # https://stackoverflow.com/questions/75922583/how-to-convert-my-threshold-image-to-rgb-colour-in-python
-        # gray = cv2.cvtColor(blurred, cv2.COLOR_BGR2GRAY)
-        ###
-        # gray = gray.copy().astype("float")
-
-        # if len(last_images) < 10:
-        #     last_images.append(gray)
-
-        # if len(last_images) == 10:
-        #     cv2.accumulate(gray, gray)
-        #     cv2.accumulate(last_images[0] * 0.001, gray)
-        #     cv2.accumulate(last_images[1] * 0.002, gray)
-        #     cv2.accumulate(last_images[2] * 0.005, gray)
-        #     cv2.accumulate(last_images[3] * 0.01, gray)
-        #     cv2.accumulate(last_images[4] * 0.02, gray)
-        #     cv2.accumulate(last_images[5] * 0.05, gray)
-        #     cv2.accumulate(last_images[6] * 0.1, gray)
-        #     cv2.accumulate(last_images[7] * 0.2, gray)
-        #     cv2.accumulate(last_images[8] * 0.5, gray)
-        #     cv2.accumulate(last_images[9] * 1.0, gray)
-        #     gray = gray / 2.888
-
-        #     for i in range(1, len(last_images)):
-        #         last_images[i - 1] = last_images[i]
-        #     last_images[-1] = gray
-
-        # gray = np.uint8(gray)
-        ###
-        # cv2.imshow("4- gray", gray)
-
         output = rotated.copy()
         output_thresh = rotated.copy()
         output_thresh[edged != 0] = [255, 255, 255]
@@ -381,13 +376,16 @@ def monitor(*args):
             # hh, ww = cnt_image.shape[:2]
             # if id < 10 and hh > 0 and ww > 0:
             #     cv2.imshow(f"cnt{id}", cnt_image)
-            cv2.rectangle(
-                output,
-                (x - 10, y - 5),
-                (x + w + 10, y + h + 5),
-                (255, 255, 20 * id),
-                1,
-            )
+            if id < 10:
+                cv2.rectangle(
+                    output,
+                    (x - 10, y - 5),
+                    (x + w + 10, y + h + 5),
+                    (255, 255, 20 * id),
+                    1,
+                )
+            else:
+                cv2.rectangle(output, (x, y), (x + w, y + h), (0, 255, 0), 1)
             cv2.rectangle(output_thresh, (x, y), (x + w, y + h), (0, 255, 0), 1)
             # font
             font = cv2.FONT_HERSHEY_SIMPLEX
@@ -454,12 +452,13 @@ async def __send(websocket, id, ck):
     # except websockets.exceptions.ConnectionClosed:
     #     print("Connection to the WebSocket server closed.")
 
-    print(f"Sent: {data_to_send}")
+    print(f"->{data_to_send}", end="")
 
     time.sleep(0.1)
 
 
 async def press_backspace(websocket):
+    print(".bs>", end="")
     await __send(websocket, 0, 42)
     await __send(websocket, 0, 0)
 
@@ -471,12 +470,13 @@ async def press_number(
         raise ValueError(f"Number as str is bad {number_as_str}")
 
     ck = mapping_dict[number_as_str]
-
+    print(f".num[{number_as_str}]>", end="")
     await __send(websocket, 0, ck)
     await __send(websocket, 0, 0)
 
 
 async def press_shifttab(websocket):
+    print(f".st>", end="")
     await __send(websocket, 2, 225)
     await __send(websocket, 2, 43)
     await __send(websocket, 0, 0)
@@ -484,45 +484,73 @@ async def press_shifttab(websocket):
 
 
 async def goto_editbar(websocket):
-    print("Going to editbar")
+    """
+    This function is called after the goto_1
+    """
+    print("\nGoing to editbar")
     if OFFLINE_MODE:
         return False
     # TODO: goto_editbar Implementation
-    while not key_state["edit"]:
+    counter = 0
+    while not key_state["edit"] and counter < 5:
         await press_shifttab(websocket)
-        time.sleep(1)
+        for i in range(4):
+            time.sleep(1 / 4)
+            await press_backspace(websocket)
+        if not key_state["edit"]:
+            print(f"\nFailed to go to editbar, will try again, counter = {counter}/4")
+        counter += 1
+
+    if counter == 5:
+        raise Exception("Failed to reach edit bar")
+    print(f"\nDone, Should be now on edit bar: {which_button_is_on()}")
 
 
 async def goto_number_1(websocket):
-    print("Going to number 1")
+    print("\ngoto_number_1: Going to number 1")
     if OFFLINE_MODE:
         return False
-    while not key_state["1"]:
+    counter = 0
+    while not key_state["1"] and counter < 40:
         await press_shifttab(websocket)
-        time.sleep(1)
-    print("Done, Should be now on number 1")
+        for i in range(4):
+            time.sleep(1 / 4)
+            await press_backspace(websocket)
+        print("\ngoto_number_1: Which_button_is_on : ", which_button_is_on())
+        counter += 1
+    if counter == 40:
+        raise Exception(
+            "goto_number_1: Failed to reach number 1, counter exceeded threshold 40"
+        )
+    print("goto_number_1: Done, Should be now on number 1")
 
 
 async def enter_number(websocket, num: str, start_from: int):
     assert len(num) == 4
-    print(f"Trying to send number {num}")
+    print(f"\nenter_number: Trying to send number -----> {num}")
     if OFFLINE_MODE:
         return False
     for index, c in enumerate(num):
         assert c in "0123456789"
         await press_number(websocket, c)
-        time.sleep(0.5)
+        for i in range(4):
+            time.sleep(1 / 4)
+            await __send(websocket, -1, "")
+        print("enter_number: Which_button_is_on : ", which_button_is_on())
+        if "edit" in key_state:
+            print(f'enter_number: key_state["edit"] = {key_state["edit"]}')
+            if index < 3 and key_state["edit"] is False:
+                print(
+                    "WARNING ------- SOMETHING BAD HAPPENED number index < 3 and key_state['edit'] is False !"
+                )
+                cv2.imwrite(
+                    f"/home/mostafa/Desktop/errors/test_error_{str(start_from).zfill(6)}_{num}_{index}.png",
+                    get_current_frame(),
+                )
         cv2.imwrite(
             f"/home/mostafa/Desktop/after_press_{index}/test_{str(start_from).zfill(6)}_{num}.png",
             get_current_frame(),
         )
-
-
-#### --------------------------------------
-#### --------------------------------------
-#### --------------------------------------
-ip_address = "192.168.4.1"  # "192.168.1.100"  #
-ws_url = f"ws://{ip_address}/d/ws/issue"
 
 
 async def keep_looping():
@@ -538,7 +566,7 @@ async def keep_looping():
 START_AVERAGING_KEY: {START_AVERAGING_KEY}, then {START_TUNING_KEY}"
             )
             await press_shifttab(websocket)
-            time.sleep(0.5)
+            time.sleep(0.2)
 
 
 async def tune_thresholds():
@@ -550,35 +578,37 @@ async def tune_thresholds():
         for i in range(30):
             print(f"press_shifttab {i}/30")
             await press_shifttab(websocket)
-            time.sleep(0.5)
+            time.sleep(0.3)
 
 
-IMAGES_PATH_AFTER_TEST = "/home/mostafa/Desktop/after_test/"
+start_from = len(os.listdir(IMAGES_PATH_AFTER_TEST))
 
 
 async def try_all_pos(possibilities):
+    global start_from
     print("function try_all_pos started ...")
-    start_from = len(os.listdir(IMAGES_PATH_AFTER_TEST))
+
     print(f"Trying to connect to websocket: {ws_url}")
 
     async with websockets.connect(ws_url) as websocket:
 
         print(f"Looping throgh possibilities starting from {start_from}")
 
-        for pos in possibilities[0:183]:
+        for pos in possibilities[start_from:]:
 
             start_time = time.time()
+
             await goto_number_1(websocket)
+
             end_time = time.time()
             elasped_time = end_time - start_time
             if elasped_time < 30:
-                print(f"Elapsed time since start going to number 1 is {elasped_time}")
+                print(f"\nElapsed time since start going to number 1 is {elasped_time}")
                 print(f"Will wait {31 - elasped_time} seconds")
                 sleep_time = 31 - elasped_time
-                for i in range(int(sleep_time)):
+                for i in range(int(sleep_time * 2)):
                     await press_backspace(websocket)
-                    time.sleep(1)
-                time.sleep(1)
+                    time.sleep(0.5)
 
             cv2.imwrite(
                 f"/home/mostafa/Desktop/on_number_1/test_{str(start_from).zfill(6)}_{pos}.png",
@@ -592,7 +622,17 @@ async def try_all_pos(possibilities):
                 get_current_frame(),
             )
 
+            for i in range(5):
+                time.sleep(0.2)
+                await press_backspace(websocket)
+
             await enter_number(websocket, pos, start_from)
+
+            time.sleep(0.5)
+            await press_backspace(websocket)
+
+            if key_state["edit"]:
+                raise Exception("After entering number, seems to be still on edit bar!")
 
             # Capture the current state
             cv2.imwrite(
@@ -646,16 +686,27 @@ def main(*args):
         )
         time.sleep(1)
 
+    counter = 0
     while True:
+
+        for _ in range(9):
+            print("\a")
+            time.sleep(0.1)
 
         try:
             print("Start event loop run until complete")
             asyncio.get_event_loop().run_until_complete(
                 try_all_pos(list_of_possibilities)
             )
+            print("Normal exit, bye bye")
+            break
         except Exception as e:
             print("Exception : ", e)
-            print("Connection will restart")
+            print(f"Connection will restart (counter = {counter})")
+            for _ in range(9):
+                print("\a")
+                time.sleep(0.1)
+        counter += 1
 
 
 def get_possibilities():
